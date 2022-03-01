@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp1", "WindowsFormsApp1\WindowsFormsApp1.csproj", "{5707B9A1-BE50-4584-9BDC-0F21B2885DBA}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database1", "C:\Users\gerae\source\repos\Database1\Database1.sqlproj", "{9BC3B95A-0A6D-4A83-9406-CC07DEBD4D36}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5707B9A1-BE50-4584-9BDC-0F21B2885DBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5707B9A1-BE50-4584-9BDC-0F21B2885DBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5707B9A1-BE50-4584-9BDC-0F21B2885DBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5707B9A1-BE50-4584-9BDC-0F21B2885DBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BC3B95A-0A6D-4A83-9406-CC07DEBD4D36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BC3B95A-0A6D-4A83-9406-CC07DEBD4D36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BC3B95A-0A6D-4A83-9406-CC07DEBD4D36}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{9BC3B95A-0A6D-4A83-9406-CC07DEBD4D36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BC3B95A-0A6D-4A83-9406-CC07DEBD4D36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BC3B95A-0A6D-4A83-9406-CC07DEBD4D36}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1C84BC6D-8C7B-4B09-88C7-E86C83B1BE0E}
+	EndGlobalSection
+EndGlobal
