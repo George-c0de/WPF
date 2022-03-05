@@ -6,7 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
-using System.Text;
+
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -94,14 +94,14 @@ namespace WindowsFormsApp1
 
             DateTime thisDay = DateTime.Now;
             SqlCommand command = new SqlCommand("INSERT INTO users (login, password, name, role, middlename, discount) VALUES (@login, @password, @name, 'USER', @middlename, '0');",db.getConnection());
-            command.Parameters.Add("@login",SqlDbType.Text).Value=loginField.Text;
-            command.Parameters.Add("@password", SqlDbType.Text).Value = password.Text;
-            command.Parameters.Add("@name", SqlDbType.Text).Value = Name.Text;
-            //command.Parameters.Add("@role", SqlDbType.Text).Value = loginField.Text;
-            command.Parameters.Add("@middlename", SqlDbType.Text).Value = midlename.Text;
-            //command.Parameters.Add("@disc", SqlDbType.Text).Value = 0;
+            command.Parameters.Add("@login",SqlDbType.VarChar).Value=loginField.Text;
+            command.Parameters.Add("@password", SqlDbType.VarChar).Value = password.Text;
+            command.Parameters.Add("@name", SqlDbType.VarChar).Value = Name.Text;
+            //command.Parameters.Add("@role", SqlDbType.VarChar).Value = loginField.Text;
+            command.Parameters.Add("@middlename", SqlDbType.VarChar).Value = midlename.Text;
+            //command.Parameters.Add("@disc", SqlDbType.VarChar).Value = 0;
 
-           
+
             db.openConnection();
 
             if (command.ExecuteNonQuery() == 1)
@@ -124,7 +124,7 @@ namespace WindowsFormsApp1
 
             SqlCommand command_info = new SqlCommand("INSERT INTO info_user (id_user, email, lastvisits, dateregister) VALUES (@iU, @Email, @lastvisits, @dateregister);", db.getConnection());
             command_info.Parameters.Add("@iU", SqlDbType.Int).Value = table_user.Rows[0].ItemArray[0];
-            command_info.Parameters.Add("@Email", SqlDbType.Text).Value = email.Text;
+            command_info.Parameters.Add("@Email", SqlDbType.VarChar).Value = email.Text;
             command_info.Parameters.Add("@lastvisits", SqlDbType.DateTime).Value = thisDay;
             command_info.Parameters.Add("@dateregister", SqlDbType.DateTime).Value = thisDay;
             command_info.ExecuteNonQuery();
@@ -142,7 +142,7 @@ namespace WindowsFormsApp1
             SqlDataAdapter adapter = new SqlDataAdapter();
 
             SqlCommand command = new SqlCommand("SELECT * FROM users WHERE login = @uL", db.getConnection());
-            command.Parameters.Add("@uL", SqlDbType.Text).Value = loginField.Text;
+            command.Parameters.Add("@uL", SqlDbType.VarChar).Value = loginField.Text;
 
             adapter.SelectCommand = command;
             adapter.Fill(table);

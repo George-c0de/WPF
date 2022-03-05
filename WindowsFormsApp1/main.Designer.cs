@@ -30,6 +30,9 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Area = new System.Windows.Forms.TabPage();
+            this.timeup = new System.Windows.Forms.DateTimePicker();
+            this.label20 = new System.Windows.Forms.Label();
+            this.dateup = new System.Windows.Forms.DateTimePicker();
             this.email = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.averagechech = new System.Windows.Forms.TextBox();
@@ -75,6 +78,20 @@
             this.loginname = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.adminpanel = new System.Windows.Forms.TabPage();
+            this.groupdelete = new System.Windows.Forms.ComboBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.servicesdelete = new System.Windows.Forms.Label();
+            this.pricechange = new System.Windows.Forms.NumericUpDown();
+            this.commentservice = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.groupchange = new System.Windows.Forms.ComboBox();
+            this.servicenamedelete = new System.Windows.Forms.ComboBox();
+            this.servicegroupchange = new System.Windows.Forms.Label();
+            this.servicedelete = new System.Windows.Forms.Button();
+            this.servicecreate = new System.Windows.Forms.Button();
+            this.servicename = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.tema = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -100,15 +117,13 @@
             this.yourid = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.lastvisits = new System.Windows.Forms.Label();
-            this.dateup = new System.Windows.Forms.DateTimePicker();
-            this.label20 = new System.Windows.Forms.Label();
-            this.timeup = new System.Windows.Forms.DateTimePicker();
             this.tabControl1.SuspendLayout();
             this.Area.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.number)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.datanear)).BeginInit();
             this.Record.SuspendLayout();
             this.adminpanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pricechange)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numberadmin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataadmin)).BeginInit();
             this.SuspendLayout();
@@ -157,6 +172,31 @@
             this.Area.TabIndex = 0;
             this.Area.Text = "Личный кабинет";
             this.Area.UseVisualStyleBackColor = true;
+            // 
+            // timeup
+            // 
+            this.timeup.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.timeup.Location = new System.Drawing.Point(465, 351);
+            this.timeup.MinDate = new System.DateTime(2022, 2, 23, 0, 0, 0, 0);
+            this.timeup.Name = "timeup";
+            this.timeup.Size = new System.Drawing.Size(200, 20);
+            this.timeup.TabIndex = 26;
+            // 
+            // label20
+            // 
+            this.label20.Location = new System.Drawing.Point(463, 305);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(190, 20);
+            this.label20.TabIndex = 25;
+            this.label20.Text = "Выберите дату для переноса";
+            // 
+            // dateup
+            // 
+            this.dateup.Location = new System.Drawing.Point(466, 325);
+            this.dateup.MinDate = new System.DateTime(2022, 2, 23, 0, 0, 0, 0);
+            this.dateup.Name = "dateup";
+            this.dateup.Size = new System.Drawing.Size(200, 20);
+            this.dateup.TabIndex = 24;
             // 
             // email
             // 
@@ -581,6 +621,20 @@
             // 
             // adminpanel
             // 
+            this.adminpanel.Controls.Add(this.groupdelete);
+            this.adminpanel.Controls.Add(this.label25);
+            this.adminpanel.Controls.Add(this.servicesdelete);
+            this.adminpanel.Controls.Add(this.pricechange);
+            this.adminpanel.Controls.Add(this.commentservice);
+            this.adminpanel.Controls.Add(this.label23);
+            this.adminpanel.Controls.Add(this.label22);
+            this.adminpanel.Controls.Add(this.groupchange);
+            this.adminpanel.Controls.Add(this.servicenamedelete);
+            this.adminpanel.Controls.Add(this.servicegroupchange);
+            this.adminpanel.Controls.Add(this.servicedelete);
+            this.adminpanel.Controls.Add(this.servicecreate);
+            this.adminpanel.Controls.Add(this.servicename);
+            this.adminpanel.Controls.Add(this.label21);
             this.adminpanel.Controls.Add(this.label19);
             this.adminpanel.Controls.Add(this.tema);
             this.adminpanel.Controls.Add(this.label18);
@@ -599,10 +653,146 @@
             this.adminpanel.Text = "admin Панель";
             this.adminpanel.UseVisualStyleBackColor = true;
             // 
+            // groupdelete
+            // 
+            this.groupdelete.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.groupdelete.FormattingEnabled = true;
+            this.groupdelete.Location = new System.Drawing.Point(462, 362);
+            this.groupdelete.Name = "groupdelete";
+            this.groupdelete.Size = new System.Drawing.Size(121, 21);
+            this.groupdelete.TabIndex = 36;
+            this.groupdelete.SelectedIndexChanged += new System.EventHandler(this.groupdelete_SelectedIndexChanged);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(459, 346);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(93, 13);
+            this.label25.TabIndex = 35;
+            this.label25.Text = "Выберите группу";
+            // 
+            // servicesdelete
+            // 
+            this.servicesdelete.AutoSize = true;
+            this.servicesdelete.Location = new System.Drawing.Point(586, 346);
+            this.servicesdelete.Name = "servicesdelete";
+            this.servicesdelete.Size = new System.Drawing.Size(95, 13);
+            this.servicesdelete.TabIndex = 34;
+            this.servicesdelete.Text = "Выберите Услугу";
+            // 
+            // pricechange
+            // 
+            this.pricechange.Increment = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.pricechange.Location = new System.Drawing.Point(461, 242);
+            this.pricechange.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
+            this.pricechange.Name = "pricechange";
+            this.pricechange.Size = new System.Drawing.Size(120, 20);
+            this.pricechange.TabIndex = 33;
+            // 
+            // commentservice
+            // 
+            this.commentservice.Location = new System.Drawing.Point(656, 246);
+            this.commentservice.Multiline = true;
+            this.commentservice.Name = "commentservice";
+            this.commentservice.Size = new System.Drawing.Size(170, 45);
+            this.commentservice.TabIndex = 32;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(653, 230);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(77, 13);
+            this.label23.TabIndex = 31;
+            this.label23.Text = "Комментарий";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(458, 226);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(33, 13);
+            this.label22.TabIndex = 30;
+            this.label22.Text = "Цена";
+            // 
+            // groupchange
+            // 
+            this.groupchange.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.groupchange.FormattingEnabled = true;
+            this.groupchange.Location = new System.Drawing.Point(656, 203);
+            this.groupchange.Name = "groupchange";
+            this.groupchange.Size = new System.Drawing.Size(121, 21);
+            this.groupchange.TabIndex = 28;
+            // 
+            // servicenamedelete
+            // 
+            this.servicenamedelete.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.servicenamedelete.FormattingEnabled = true;
+            this.servicenamedelete.Location = new System.Drawing.Point(589, 362);
+            this.servicenamedelete.Name = "servicenamedelete";
+            this.servicenamedelete.Size = new System.Drawing.Size(121, 21);
+            this.servicenamedelete.TabIndex = 27;
+            this.servicenamedelete.SelectedIndexChanged += new System.EventHandler(this.servicenamedelete_SelectedIndexChanged);
+            this.servicenamedelete.Enter += new System.EventHandler(this.servicenamedelete_Enter);
+            // 
+            // servicegroupchange
+            // 
+            this.servicegroupchange.AutoSize = true;
+            this.servicegroupchange.Location = new System.Drawing.Point(653, 188);
+            this.servicegroupchange.Name = "servicegroupchange";
+            this.servicegroupchange.Size = new System.Drawing.Size(93, 13);
+            this.servicegroupchange.TabIndex = 26;
+            this.servicegroupchange.Text = "Выберите группу";
+            // 
+            // servicedelete
+            // 
+            this.servicedelete.Location = new System.Drawing.Point(723, 362);
+            this.servicedelete.Name = "servicedelete";
+            this.servicedelete.Size = new System.Drawing.Size(120, 23);
+            this.servicedelete.TabIndex = 25;
+            this.servicedelete.Text = "Удалить услугу";
+            this.servicedelete.UseVisualStyleBackColor = true;
+            this.servicedelete.Click += new System.EventHandler(this.servicedelete_Click);
+            // 
+            // servicecreate
+            // 
+            this.servicecreate.Location = new System.Drawing.Point(461, 268);
+            this.servicecreate.Name = "servicecreate";
+            this.servicecreate.Size = new System.Drawing.Size(120, 23);
+            this.servicecreate.TabIndex = 24;
+            this.servicecreate.Text = "Добавить услугу";
+            this.servicecreate.UseVisualStyleBackColor = true;
+            this.servicecreate.Click += new System.EventHandler(this.servicecreate_Click);
+            // 
+            // servicename
+            // 
+            this.servicename.Location = new System.Drawing.Point(461, 204);
+            this.servicename.Name = "servicename";
+            this.servicename.Size = new System.Drawing.Size(182, 20);
+            this.servicename.TabIndex = 23;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(458, 188);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(93, 13);
+            this.label21.TabIndex = 22;
+            this.label21.Text = "Название услуги";
+            // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(510, 188);
+            this.label19.Location = new System.Drawing.Point(309, 188);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(75, 13);
             this.label19.TabIndex = 21;
@@ -616,7 +806,7 @@
             "Акция",
             "Поздравления",
             "Оповещение "});
-            this.tema.Location = new System.Drawing.Point(513, 204);
+            this.tema.Location = new System.Drawing.Point(312, 203);
             this.tema.Name = "tema";
             this.tema.Size = new System.Drawing.Size(121, 21);
             this.tema.TabIndex = 20;
@@ -624,7 +814,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(248, 188);
+            this.label18.Location = new System.Drawing.Point(186, 226);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(78, 13);
             this.label18.TabIndex = 19;
@@ -632,7 +822,7 @@
             // 
             // textemail
             // 
-            this.textemail.Location = new System.Drawing.Point(251, 204);
+            this.textemail.Location = new System.Drawing.Point(189, 242);
             this.textemail.Multiline = true;
             this.textemail.Name = "textemail";
             this.textemail.Size = new System.Drawing.Size(244, 105);
@@ -640,7 +830,7 @@
             // 
             // emailgo
             // 
-            this.emailgo.Location = new System.Drawing.Point(251, 315);
+            this.emailgo.Location = new System.Drawing.Point(189, 362);
             this.emailgo.Name = "emailgo";
             this.emailgo.Size = new System.Drawing.Size(244, 42);
             this.emailgo.TabIndex = 17;
@@ -817,31 +1007,6 @@
             this.lastvisits.Size = new System.Drawing.Size(0, 13);
             this.lastvisits.TabIndex = 24;
             // 
-            // dateup
-            // 
-            this.dateup.Location = new System.Drawing.Point(466, 325);
-            this.dateup.MinDate = new System.DateTime(2022, 2, 23, 0, 0, 0, 0);
-            this.dateup.Name = "dateup";
-            this.dateup.Size = new System.Drawing.Size(200, 20);
-            this.dateup.TabIndex = 24;
-            // 
-            // label20
-            // 
-            this.label20.Location = new System.Drawing.Point(463, 305);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(190, 20);
-            this.label20.TabIndex = 25;
-            this.label20.Text = "Выберите дату для переноса";
-            // 
-            // timeup
-            // 
-            this.timeup.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.timeup.Location = new System.Drawing.Point(465, 351);
-            this.timeup.MinDate = new System.DateTime(2022, 2, 23, 0, 0, 0, 0);
-            this.timeup.Name = "timeup";
-            this.timeup.Size = new System.Drawing.Size(200, 20);
-            this.timeup.TabIndex = 26;
-            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -870,6 +1035,7 @@
             this.Record.PerformLayout();
             this.adminpanel.ResumeLayout(false);
             this.adminpanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pricechange)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numberadmin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataadmin)).EndInit();
             this.ResumeLayout(false);
@@ -954,5 +1120,19 @@
         private System.Windows.Forms.DateTimePicker timeup;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.DateTimePicker dateup;
+        private System.Windows.Forms.Button servicedelete;
+        private System.Windows.Forms.Button servicecreate;
+        private System.Windows.Forms.TextBox servicename;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label servicegroupchange;
+        private System.Windows.Forms.ComboBox groupchange;
+        private System.Windows.Forms.ComboBox servicenamedelete;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox commentservice;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.NumericUpDown pricechange;
+        private System.Windows.Forms.ComboBox groupdelete;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label servicesdelete;
     }
 }

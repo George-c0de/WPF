@@ -68,6 +68,16 @@ namespace WindowsFormsApp1
                 var a = servgroup.Text;
                 servgroup.Items.Add(item.ItemArray[1].ToString());
             }
+            foreach (DataRow item in table2.Rows)
+            {
+                var a = servgroup.Text;
+                groupchange.Items.Add(item.ItemArray[1].ToString());
+            }
+            foreach (DataRow item in table2.Rows)
+            {
+                var a = servgroup.Text;
+                groupdelete.Items.Add(item.ItemArray[1].ToString());
+            }
             SqlDataAdapter adaptersalon = new SqlDataAdapter();
             DataTable tablesalon = new DataTable();
             SqlCommand commandsalon = new SqlCommand("SELECT * FROM salons", db.getConnection());
@@ -120,6 +130,8 @@ namespace WindowsFormsApp1
                 command.Parameters.Add("@uS", SqlDbType.Int).Value = id_salons;
                 adapter.SelectCommand = command;
                 adapter.Fill(table);
+                master.Items.Clear();
+                master.Text = "";
                 foreach (DataRow item in table.Rows)
                 {
                     master.Items.Add(item.ItemArray[1].ToString());
@@ -182,6 +194,29 @@ namespace WindowsFormsApp1
                 MessageBox.Show("Некорректная дата");
                 return;
             }
+            
+            label10.Text = "";
+            DataTable table2 = new DataTable();
+            SqlDataAdapter adapter2 = new SqlDataAdapter();
+            SqlCommand command2 = new SqlCommand("SELECT * FROM master WHERE name =@uN ", db.getConnection());
+            command2.Parameters.Add("@uN", SqlDbType.VarChar).Value = master.Text;
+            adapter2.SelectCommand = command2;
+            adapter2.Fill(table2);
+            id_persone = Convert.ToInt32(table2.Rows[0].ItemArray[0]);
+
+            DataTable table = new DataTable();
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            SqlCommand command = new SqlCommand("INSERT INTO visits (id_user, id_service, id_personal, Дата, Время, Услуга_оказана, id_salon,price) VALUES (@id_user, @id_service, @id_personal, @date, @time, '0', @id_salon,@price)", db.getConnection());
+            command.Parameters.Add("@id_user", SqlDbType.Int).Value = id_user;
+            command.Parameters.Add("@id_service", SqlDbType.Int).Value =id_service ;
+            command.Parameters.Add("@id_personal", SqlDbType.Int).Value = id_persone;
+            command.Parameters.Add("@date", SqlDbType.Date).Value = date.Value;
+            var time2 = time.Value;
+            command.Parameters.Add("@time", SqlDbType.DateTime).Value = time.Value;
+            command.Parameters.Add("@id_salon", SqlDbType.Int).Value = id_salons;
+            command.Parameters.Add("@price", SqlDbType.Int).Value = price-(price*(discount_your/100));
+            adapter.SelectCommand = command;
+            adapter.Fill(table);
             foreach (DataRow row in table3.Rows)
             {
                 if (Convert.ToDateTime(row.ItemArray[4]) == date.Value.Date)
@@ -189,9 +224,9 @@ namespace WindowsFormsApp1
                     var a = row.ItemArray[4];
                     TimeSpan b = (TimeSpan)row.ItemArray[5];
                     //Timespan
-                    if (b.Hours == time.Value.Hour && ((Math.Abs(b.Minutes - time.Value.Minute)) <=30 ))
+                    if (b.Hours == time.Value.Hour && ((Math.Abs(b.Minutes - time.Value.Minute)) <= 30))
                     {
-                        if (Convert.ToInt32(row.ItemArray[3])==id_persone)
+                        if (Convert.ToInt32(row.ItemArray[3]) == id_persone)
                         {
                             MessageBox.Show("На эту дату уже есть запись");
                             time.Value = thisDay;
@@ -210,28 +245,6 @@ namespace WindowsFormsApp1
                 }
                 datanear_update(id_user);
             }
-            label10.Text = "";
-            DataTable table2 = new DataTable();
-            SqlDataAdapter adapter2 = new SqlDataAdapter();
-            SqlCommand command2 = new SqlCommand("SELECT * FROM master WHERE name =@uN ", db.getConnection());
-            command2.Parameters.Add("@uN", SqlDbType.Text).Value = master.Text;
-            adapter2.SelectCommand = command2;
-            adapter2.Fill(table2);
-            id_persone = Convert.ToInt32(table2.Rows[0].ItemArray[0]);
-
-            DataTable table = new DataTable();
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            SqlCommand command = new SqlCommand("INSERT INTO visits (id_user, id_service, id_personal, Дата, Время, Услуга_оказана, id_salon,price) VALUES (@id_user, @id_service, @id_personal, @date, @time, '0', @id_salon,@price)", db.getConnection());
-            command.Parameters.Add("@id_user", SqlDbType.Int).Value = id_user;
-            command.Parameters.Add("@id_service", SqlDbType.Int).Value =id_service ;
-            command.Parameters.Add("@id_personal", SqlDbType.Int).Value = id_persone;
-            command.Parameters.Add("@date", SqlDbType.Date).Value = date.Value;
-            var time2 = time.Value;
-            command.Parameters.Add("@time", SqlDbType.DateTime).Value = time.Value;
-            command.Parameters.Add("@id_salon", SqlDbType.Int).Value = id_salons;
-            command.Parameters.Add("@price", SqlDbType.Int).Value = price-(price*(discount_your/100));
-            adapter.SelectCommand = command;
-            adapter.Fill(table);
             MessageBox.Show("Вы успешно записались");
 
         }
@@ -597,7 +610,7 @@ namespace WindowsFormsApp1
                 SqlDataAdapter adapter = new SqlDataAdapter();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM services WHERE name = @us", db.getConnection());
-                command.Parameters.Add("@uS", SqlDbType.Text).Value = services.Text;
+                command.Parameters.Add("@uS", SqlDbType.VarChar).Value = services.Text;
                 adapter.SelectCommand = command;
                 adapter.Fill(table);
 
@@ -616,7 +629,7 @@ namespace WindowsFormsApp1
             SqlDataAdapter adapter2 = new SqlDataAdapter();
             DataTable table2 = new DataTable();
             SqlCommand command2 = new SqlCommand("SELECT * FROM servgroups WHERE Name= @un ", db.getConnection());
-            command2.Parameters.Add("@un", SqlDbType.Text).Value = servgroup.Text;
+            command2.Parameters.Add("@un", SqlDbType.VarChar).Value = servgroup.Text;
             adapter2.SelectCommand = command2;
 
 
@@ -668,7 +681,7 @@ namespace WindowsFormsApp1
             foreach (DataRow item in table.Rows)
             {
                 string to = item.ItemArray[1].ToString();
-                //MailMessage mail = new MailMessage(your_email, to, tema.Text, textemail.Text);
+                //MailMessage mail = new MailMessage(your_email, to, tema.Text, textemail.VarChar);
 
                 MailMessage message = new MailMessage();
                 message.To.Add(new MailAddress(to)); // кому отправлять  
@@ -690,7 +703,6 @@ namespace WindowsFormsApp1
 
         private void change_Click(object sender, EventArgs e)
         {
-            
             DateTime thisDay = DateTime.Today;
             Db db = new Db();
             db.openConnection();
@@ -751,7 +763,7 @@ namespace WindowsFormsApp1
 
             DataTable table = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter();
-            SqlCommand command = new SqlCommand("UPDATE visits SET Дата=@date,Время=@time WHERE id = @iV", db.getConnection());
+            SqlCommand command = new SqlCommand("UPDATE visits SET Дата=@date,Время=@time, Услуга_оказана=0 WHERE id = @iV", db.getConnection());
             command.Parameters.Add("@iV", SqlDbType.Int).Value = table3.Rows[(int)number.Value - 1].ItemArray[0];
             command.Parameters.Add("@date", SqlDbType.Date).Value = dateup.Value;
             command.Parameters.Add("@time", SqlDbType.DateTime).Value = timeup.Value;
@@ -779,10 +791,168 @@ namespace WindowsFormsApp1
             lastPoint = new Point(e.X, e.Y); 
         }
 
+        private void servicecreate_Click(object sender, EventArgs e)
+        {
+            if(servicename.Text=="" || pricechange.Value == 0 || commentservice.Text=="" || groupchange.Text=="")
+            {
+                MessageBox.Show("Заполните все поля");
+                return;
+            }
+            master.Text = "";
+            services.Text = "";
+            servgroup.Text = "";
+            Db db = new Db();
+            db.openConnection();
+            DataTable table = new DataTable();
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            SqlCommand command2 = new SqlCommand("SELECT * FROM servgroups WHERE name = @ug ", db.getConnection());
+            command2.Parameters.Add("@ug", SqlDbType.VarChar).Value = groupchange.Text;
+            adapter.SelectCommand = command2;
+            
+            adapter.Fill(table);
+            int id_group = Convert.ToInt16(table.Rows[0].ItemArray[0]);
+
+            DataTable table2 = new DataTable();
+            SqlDataAdapter adapter2 = new SqlDataAdapter();
+            SqlCommand command3 = new SqlCommand("SELECT * FROM services", db.getConnection());
+            adapter2.SelectCommand = command3;
+            adapter2.Fill(table2);
+            foreach (DataRow item in table2.Rows)
+            {
+                if(item.ItemArray[1].ToString() == servicename.Text)
+                {
+                    MessageBox.Show("Нельзя добавить услугу с таким именем");
+                    return;
+                }
+            }
+
+            SqlCommand command = new SqlCommand("INSERT INTO services (name, id_group, price, comment) VALUES (@name, @id_group, @price, @comment)", db.getConnection());
+            command.Parameters.Add("@name", SqlDbType.VarChar).Value = servicename.Text;
+            command.Parameters.Add("@id_group", SqlDbType.Int).Value = id_group;
+            command.Parameters.Add("@price", SqlDbType.Float).Value = Convert.ToDouble(pricechange.Text);
+            command.Parameters.Add("@comment", SqlDbType.VarChar).Value =commentservice.Text;
+
+            command.ExecuteNonQuery();
+            db.closeConnection();
+            MessageBox.Show("Улуга добавлена");
+
+        }
+
+        private void servicedelete_Click(object sender, EventArgs e)
+        {
+            if (groupdelete.Text=="" || servicenamedelete.Text=="")
+            {
+                MessageBox.Show("Заполните все поля");
+                return;
+            }
+            Db db = new Db();
+            db.openConnection();
+
+            DataTable table = new DataTable();
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            SqlCommand command2 = new SqlCommand("SELECT * FROM services WHERE name = @name", db.getConnection());
+            command2.Parameters.Add("@name", SqlDbType.VarChar).Value = servicenamedelete.Text;
+            adapter.SelectCommand = command2;
+            adapter.Fill(table);
+            var id_servicedelete = table.Rows[0].ItemArray[0];
+
+            SqlCommand command = new SqlCommand("DELETE FROM services WHERE name = @name", db.getConnection());
+            command.Parameters.Add("@name", SqlDbType.VarChar).Value = servicenamedelete.Text;
+
+            DataTable table2 = new DataTable();
+            SqlDataAdapter adapter2 = new SqlDataAdapter();
+            SqlCommand command3 = new SqlCommand("SELECT * FROM visits WHERE id_service=@id", db.getConnection());
+            command3.Parameters.Add("@id", SqlDbType.Int).Value = id_servicedelete;
+            adapter2.SelectCommand = command3;
+            adapter2.Fill(table2);
+            if (table2.Rows.Count != 0)
+            {
+                MessageBox.Show("Вы не можете удалить эту услугу");
+                return;
+            }
+
+            command.ExecuteNonQuery();
+
+            db.closeConnection();
+            groupdelete.Text = "";
+            servicenamedelete.Text = "";
+            servicenamedelete.Items.Clear();
+            MessageBox.Show("Услуга удалена");       
+        }
+
+
+
+        private void groupdelete_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Db db = new Db();
+            if (groupdelete.Text != "")
+            {
+
+                DataTable table = new DataTable();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+
+                SqlCommand command = new SqlCommand("SELECT * FROM services WHERE id_group = @ug ", db.getConnection());
+                command.Parameters.Add("@ug", SqlDbType.Int).Value = id_servicegroup;
+                adapter.SelectCommand = command;
+                adapter.Fill(table);
+                servicenamedelete.Items.Clear();
+                servicenamedelete.Text = "";
+                foreach (DataRow item in table.Rows)
+                {
+                    servicenamedelete.Items.Add(item.ItemArray[1].ToString());
+                }
+            }
+        }
+
+        private void servicenamedelete_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Db db = new Db();
+            if (servgroup.Text != "")
+            {
+
+                DataTable table = new DataTable();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+
+                SqlCommand command = new SqlCommand("SELECT * FROM services WHERE id_group = @ug ", db.getConnection());
+                command.Parameters.Add("@ug", SqlDbType.Int).Value = id_servicegroup;
+                adapter.SelectCommand = command;
+                adapter.Fill(table);
+                foreach (DataRow item in table.Rows)
+                {
+                    services.Items.Add(item.ItemArray[1].ToString());
+                }
+            }
+        }
+
+        private void servicenamedelete_Enter(object sender, EventArgs e)
+        {
+            Db db = new Db();
+            if (groupdelete.Text != "")
+            {
+
+                DataTable table = new DataTable();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+
+                SqlCommand command = new SqlCommand("SELECT * FROM services WHERE id_group = @ug ", db.getConnection());
+                command.Parameters.Add("@ug", SqlDbType.Int).Value = id_servicegroup;
+                adapter.SelectCommand = command;
+                adapter.Fill(table);
+                servicenamedelete.Items.Clear();
+                servicenamedelete.Text = "";
+                foreach (DataRow item in table.Rows)
+                {
+                    servicenamedelete.Items.Add(item.ItemArray[1].ToString());
+                }
+            }
+        }
+
         private void servgroup_Enter(object sender, EventArgs e)
         {
             services.Items.Clear();
             services.Text = "";
+            
+
+
         }
 
         private void master_SelectedIndexChanged(object sender, EventArgs e)
@@ -792,7 +962,7 @@ namespace WindowsFormsApp1
             SqlDataAdapter adapter = new SqlDataAdapter();
 
             SqlCommand command = new SqlCommand("SELECT * FROM services WHERE name = @ug ", db.getConnection());
-            command.Parameters.Add("@ug", SqlDbType.Text).Value = services.Text;
+            command.Parameters.Add("@ug", SqlDbType.VarChar).Value = services.Text;
             adapter.SelectCommand = command;
             adapter.Fill(table);
 
@@ -809,12 +979,13 @@ namespace WindowsFormsApp1
                     services.Items.Clear();
                 services.Text = "";
             }
+            
             Db db = new Db();
             DataTable table = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter();
 
             SqlCommand command = new SqlCommand("SELECT * FROM salons WHERE name = @uN", db.getConnection());
-            command.Parameters.Add("@uN", SqlDbType.Text).Value = salons.Text;
+            command.Parameters.Add("@uN", SqlDbType.VarChar).Value = salons.Text;
             adapter.SelectCommand = command;
             adapter.Fill(table);
             id_salons = Convert.ToInt32(table.Rows[0].ItemArray[0]);
@@ -921,6 +1092,7 @@ namespace WindowsFormsApp1
 
             SqlDataAdapter adaptermaster = new SqlDataAdapter();
             SqlCommand commandmaster = new SqlCommand("SELECT * FROM master WHERE id = @uI", db.getConnection());
+            
             int i = 1;
             foreach (DataRow item in table3.Rows)
             {
